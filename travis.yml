@@ -4,4 +4,4 @@ node_js:
 services:
   - mongodb
 env:
-  - MONGODB_URI=mongodb://localhost:27017/burritos
+  - MONGODB_URI=mongodb://localhost:27017/foods
