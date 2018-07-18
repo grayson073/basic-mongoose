@@ -40,4 +40,34 @@ describe('Burrito model', () => {
         assert.equal(errors.price.kind, 'required');
     });
 
+    it('Has a rating of at least 1', () => {
+        const burrito = new Burrito({
+            name: 'Super Burrito',
+            price: 6.50,
+            rating: 0,
+            ingredients: {
+                meat: 'beef'
+            }
+        });
+
+        const errors = getErrors(burrito.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.rating.kind, 'min');
+    });
+
+    it('Has a rating of no more than 5', () => {
+        const burrito = new Burrito({
+            name: 'Super Burrito',
+            price: 6.50,
+            rating: 6,
+            ingredients: {
+                meat: 'beef'
+            }
+        });
+
+        const errors = getErrors(burrito.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors.rating.kind, 'max');
+    });
+
 });
