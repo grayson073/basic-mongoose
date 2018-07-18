@@ -70,4 +70,18 @@ describe('Burrito model', () => {
         assert.equal(errors.rating.kind, 'max');
     });
 
+    it('Meat includes only beef, chicken, or pork', () => {
+        const burrito = new Burrito({
+            name: 'Super Burrito',
+            price: 6.50,
+            ingredients: {
+                meat: 'fish'
+            }
+        });
+
+        const errors = getErrors(burrito.validateSync(), 1);
+        assert.equal(Object.keys(errors).length, 1);
+        assert.equal(errors['ingredients.meat'].kind, 'enum');
+    });
+
 });
