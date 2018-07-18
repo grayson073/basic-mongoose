@@ -71,15 +71,13 @@ describe('Burritos API', () => {
             });
     });
 
-    it.skip('Updates a resource by id', () => {
+    it('Updates a resource by id', () => {
         californiaBurrito.name = 'Super Cali Burrito';
 
         return request
             .put(`/api/burritos/${californiaBurrito._id}`)
             .send(californiaBurrito)
             .then(({ body }) => {
-                console.log('BODY IS', body);
-                console.log('CALI B IS', californiaBurrito);
                 assert.deepEqual(body, californiaBurrito);
             });
     });
@@ -87,9 +85,16 @@ describe('Burritos API', () => {
     it('Deletes a resource by id', () => {
         return request
             .del(`/api/burritos/${californiaBurrito._id}`)
-            .then(() => request.get('/api/burritos/'))
             .then(({ body }) => {
-                assert.deepEqual(body, [carneAsada]);
+                assert.isTrue(body.removed);
+            });
+    });
+
+    it('Returns removed: false on non-existent object', () => {
+        return request
+            .del(`/api/burritos/5b4f8bfe8990cdeff599803a`)
+            .then(({ body }) => {
+                assert.isFalse(body.removed);
             });
     });
 
