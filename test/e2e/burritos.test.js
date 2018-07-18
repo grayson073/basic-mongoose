@@ -71,15 +71,25 @@ describe('Burritos API', () => {
             });
     });
 
-    it('Updates a resource by id', () => {
-        carneAsada.name = 'Super Cali Burrito';
-        carneAsada.price = 10;
+    it.skip('Updates a resource by id', () => {
+        californiaBurrito.name = 'Super Cali Burrito';
 
         return request
-            .get(`/api/burritos/${carneAsada._id}`)
+            .put(`/api/burritos/${californiaBurrito._id}`)
+            .send(californiaBurrito)
             .then(({ body }) => {
-                assert.deepEqual(body.name, carneAsada.name);
-                assert.deepEqual(body.price, carneAsada.price);
+                console.log('BODY IS', body);
+                console.log('CALI B IS', californiaBurrito);
+                assert.deepEqual(body, californiaBurrito);
+            });
+    });
+
+    it('Deletes a resource by id', () => {
+        return request
+            .del(`/api/burritos/${californiaBurrito._id}`)
+            .then(() => request.get('/api/burritos/'))
+            .then(({ body }) => {
+                assert.deepEqual(body, [carneAsada]);
             });
     });
 
