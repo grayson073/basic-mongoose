@@ -44,11 +44,22 @@ describe('Burritos API', () => {
         assert.isOk(carneAsada._id);
     });
 
-    it('Gets a list of burritos', () => {
+    it('Gets a list of burritos with only name and price selected', () => {
         return request
             .get('/api/burritos')
             .then(({ body }) => {
-                assert.deepEqual(body, [carneAsada, californiaBurrito]);
+                assert.equal(body[0].name, ['Carne Asada']);
+                assert.equal(body[1].name, ['California Burrito']);
+                assert.equal(body[0].price, [5.00]);
+                assert.equal(body[1].price, [7.00]);
+            });
+    });
+
+    it('Gets a burrito by id', () => {
+        return request
+            .get(`/api/burritos/${carneAsada._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, carneAsada);
             });
     });
 
