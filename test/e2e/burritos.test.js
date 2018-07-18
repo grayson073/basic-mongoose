@@ -97,5 +97,4 @@ describe('Burritos API', () => {
                 assert.isFalse(body.removed);
             });
     });
-
 });
