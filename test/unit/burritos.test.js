@@ -84,4 +84,16 @@ describe('Burrito model', () => {
         assert.equal(errors['ingredients.meat'].kind, 'enum');
     });
 
+    it('isSpicy defaults to true if not supplied', () => {
+        const burrito = new Burrito({
+            name: 'Spicy Burrito',
+            price: 7.00,
+            ingredients: {
+                meat: 'beef'
+            }
+        });
+
+        assert.strictEqual(burrito.isSpicy, true);
+    });
+
 });
