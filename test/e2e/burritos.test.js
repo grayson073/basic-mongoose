@@ -63,4 +63,12 @@ describe('Burritos API', () => {
             });
     });
 
+    it('Returns a 404 if requested id doesn\'t exist', () => {
+        return request
+            .get('/api/burritos/5b4e19d81cb530811cda0999')
+            .then(res => {
+                assert.deepEqual(res.status, 404);
+            });
+    });
+
 });
