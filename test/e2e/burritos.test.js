@@ -92,7 +92,7 @@ describe('Burritos API', () => {
 
     it('Returns removed: false on non-existent object', () => {
         return request
-            .del(`/api/burritos/5b4f8bfe8990cdeff599803a`)
+            .del('/api/burritos/5b4f8bfe8990cdeff599803a')
             .then(({ body }) => {
                 assert.isFalse(body.removed);
             });
