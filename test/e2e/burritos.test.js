@@ -71,4 +71,16 @@ describe('Burritos API', () => {
             });
     });
 
+    it('Updates a resource by id', () => {
+        carneAsada.name = 'Super Cali Burrito';
+        carneAsada.price = 10;
+
+        return request
+            .get(`/api/burritos/${carneAsada._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body.name, carneAsada.name);
+                assert.deepEqual(body.price, carneAsada.price);
+            });
+    });
+
 });
